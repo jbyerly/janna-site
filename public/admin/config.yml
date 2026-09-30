@@ -2,7 +2,7 @@
 # Backend: connect to the site's GitHub repo (Jerry fills these in on deploy)
 backend:
   name: github
-  repo: jbyerly2006/janna-site
+  repo: jbyerly/janna-site
   branch: main
 
 media_folder: "public/images/uploads"
