@@ -1,0 +1,78 @@
+---
+import Base from "../layouts/Base.astro";
+import settings from "../data/settings.json";
+---
+<Base title="Janna Lyn — Travel Advisor" active="Home">
+  <header class="hero">
+    <div class="wrap hero-inner">
+      <div>
+        <span class="eyebrow" style="color:#FFD9A8;">Cruises · Disney · Universal · Beyond</span>
+        <h1>Adventures planned <em>around you.</em></h1>
+        <p class="lede">
+          Hi, I'm Janna Lyn! I turn "someday" trips into "remember when" stories —
+          cruises, theme parks, and bucket-list getaways, planned down to the last detail
+          (flight delays excluded — nobody can plan around those).
+        </p>
+        <div class="hero-cta">
+          <a class="btn" href="/contact">Plan my trip</a>
+          <a class="btn btn-ghost" href="/videos">Watch my ship tours</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="/images/Janna-Dollywood-2-scaled.jpg" alt="Janna Lyn at Dollywood" fetchpriority="high" />
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">Why travel with me</span>
+      <h2>A planner by passion, <br />an advisor by profession.</h2>
+      <div class="card-grid" style="margin-top: 32px;">
+        <div class="card"><div class="card-body">
+          <div class="meta">Since 2017</div>
+          <h3>Real experience, not brochures</h3>
+          <p>Most of the Caribbean, several European countries, 28 states — plus Disney and Universal specialist training. I've been where I'm sending you.</p>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="meta">Cruise lover</div>
+          <h3>Ship tours before you sail</h3>
+          <p>Walk through the actual ship on my YouTube channel before you book — dining, decks, and staterooms, no surprises.</p>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="meta">Zero extra cost</div>
+          <h3>My planning is free to you</h3>
+          <p>Travel advisors are paid by the travel companies, not by you. You get an expert in your corner for the same price as booking it yourself.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap split">
+      <img src="/images/20220501_081921-scaled.jpg" alt="Janna Lyn traveling" loading="lazy" />
+      <div>
+        <span class="eyebrow">From the blog</span>
+        <h2>Stories from the road</h2>
+        <p>Trip reports, ship walkthroughs, and the honest details — like what the food is <em>really</em> like on the Galactic Starcruiser.</p>
+        <a class="btn btn-ghost" href="/blog" style="margin-top: 12px;">Read the blog</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="band">
+        <span class="eyebrow" style="color:#FFD9A8;">Wander notes</span>
+        <h2>Travel inspiration, once a month</h2>
+        <p>Deals, destination guides, and stories — straight to your inbox. Unsubscribe anytime.</p>
+        <form class="inline-form" data-newsletter>
+          <input type="email" name="email" placeholder="Your email address" required aria-label="Email address" />
+          <button class="btn" type="submit">Sign me up</button>
+          <div class="cf-turnstile" data-sitekey={settings.turnstile_site_key}></div>
+        </form>
+        <p class="form-note" data-newsletter-status></p>
+      </div>
+    </div>
+  </section>
+</Base>

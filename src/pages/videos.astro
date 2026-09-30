@@ -1,0 +1,31 @@
+---
+import Base from "../layouts/Base.astro";
+import videoData from "../data/videos.json";
+import settings from "../data/settings.json";
+const videos = videoData.videos;
+---
+<Base title="Ship Tour Videos" active="Videos">
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">YouTube</span>
+      <h1>Walk the ship before you sail</h1>
+      <p style="max-width: 40em;">My ship walkthroughs show you what cruising is really like — the pools, the dining rooms, the cabins — so you can pick the right ship with confidence.</p>
+      <div class="video-grid" style="margin-top: 32px;">
+        {videos.map((v) => (
+          <div>
+            <div class="video-embed">
+              <iframe src={`https://www.youtube.com/embed/${v.id}`} title={v.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen loading="lazy"></iframe>
+            </div>
+            <h3 style="margin-top: 14px;">{v.title}</h3>
+            <p>{v.note}</p>
+          </div>
+        ))}
+      </div>
+      <p style="margin-top: 28px;">
+        <a class="btn" href={settings.youtube_url} target="_blank" rel="noopener">Subscribe on YouTube</a>
+      </p>
+    </div>
+  </section>
+</Base>

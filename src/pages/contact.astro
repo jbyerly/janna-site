@@ -1,0 +1,63 @@
+---
+import Base from "../layouts/Base.astro";
+import settings from "../data/settings.json";
+---
+<Base title="Contact" active="Contact">
+  <section>
+    <div class="wrap" style="max-width: 680px;">
+      <span class="eyebrow">Contact</span>
+      <h1> Tell me about your dream trip</h1>
+      <p>Where do you want to go? When? Who's coming? The more you share, the better I can tailor it. I personally read every message.</p>
+      <form data-contact style="margin-top: 28px;">
+        <div class="field">
+          <label for="c-name">Your name</label>
+          <input id="c-name" name="name" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="c-email">Email</label>
+          <input id="c-email" name="email" type="email" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="c-type">What are you dreaming about?</label>
+          <select id="c-type" name="trip_type">
+            <option>Cruise</option>
+            <option>Disney / Universal</option>
+            <option>Beach getaway</option>
+            <option>Europe</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="c-msg">Tell me more</label>
+          <textarea id="c-msg" name="message" placeholder="Dates, travelers, must-haves, budget…"></textarea>
+        </div>
+        <div class="cf-turnstile" data-sitekey={settings.turnstile_site_key} style="margin-bottom:18px;"></div>
+        <button class="btn" type="submit">Send it over</button>
+        <p class="form-note" data-contact-status></p>
+      </form>
+    </div>
+  </section>
+  <script>
+    const form = document.querySelector("[data-contact]");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const status = document.querySelector("[data-contact-status]");
+      const data = Object.fromEntries(new FormData(form).entries());
+      if (!data["cf-turnstile-response"]) { status.textContent = "Give the spam check a moment, then try again."; return; }
+      data.turnstile = data["cf-turnstile-response"];
+      status.textContent = "Sending…";
+      try {
+        const r = await fetch("https://gallivant-forms.jbyerly2006.workers.dev/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const j = await r.json();
+        if (j.ok) { status.textContent = "Got it! I'll be in touch soon."; form.reset(); if (window.turnstile) window.turnstile.reset(); }
+        else throw new Error(j.error || "Something went wrong.");
+      } catch (err) {
+        status.textContent = "Hmm, that didn't send — try again in a bit.";
+      }
+    });
+  </script>
+</Base>

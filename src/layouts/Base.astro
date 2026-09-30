@@ -1,0 +1,94 @@
+---
+import "../styles/global.css";
+import settings from "../data/settings.json";
+
+interface Props {
+  title: string;
+  description?: string;
+  active?: string;
+}
+const { title, description = "Janna Lyn — your trusted travel advisor. Cruises, Disney, Universal, and unforgettable adventures, planned with love.", active = "" } = Astro.props;
+const links = [
+  ["Home", "/"],
+  ["About", "/about"],
+  ["Blog", "/blog"],
+  ["Gallery", "/gallery"],
+  ["Videos", "/videos"],
+  ["Contact", "/contact"],
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} · Janna Lyn Travel</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="/">Janna Lyn<small>Gallivant Travel</small></a>
+        <ul class="nav-links">
+          {links.map(([label, href]) => (
+            <li><a href={href} class={active === label ? "active" : ""}>{label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <div class="wrap footer-inner">
+        <div>
+          <h3>Let's plan your next adventure</h3>
+          <p style="color: rgba(255,255,255,0.75); max-width: 30em;">
+            Cruises, Disney, Universal, and beyond — crafted around the way you love to travel.
+          </p>
+          <a class="btn" href="/contact">Start planning</a>
+        </div>
+        <div>
+          <h3>Wander notes, monthly</h3>
+          <p style="color: rgba(255,255,255,0.75);">Travel tips, deals, and stories from the road. No spam, ever.</p>
+          <form class="inline-form" data-newsletter>
+            <input type="email" name="email" placeholder="Your email address" required aria-label="Email address" />
+            <button class="btn" type="submit">Join</button>
+            <div class="cf-turnstile" data-sitekey={settings.turnstile_site_key} style="margin-top:12px;"></div>
+          </form>
+          <p class="form-note" data-newsletter-status style="color: rgba(255,255,255,0.7);"></p>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <span>© {new Date().getFullYear()} Gallivant LLC · Janna Lyn, Travel Advisor</span>
+        <span>Independent agent for Lavender Hills Travel</span>
+      </div>
+    </footer>
+    <script>
+      document.querySelectorAll("[data-newsletter]").forEach((form) => {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const status = form.parentElement.querySelector("[data-newsletter-status]");
+          const fd = new FormData(form);
+          const email = fd.get("email");
+          const turnstile = fd.get("cf-turnstile-response");
+          if (!turnstile) { status.textContent = "Give the spam check a moment, then try again."; return; }
+          status.textContent = "Joining…";
+          try {
+            const r = await fetch("https://gallivant-forms.jbyerly2006.workers.dev/newsletter", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email, turnstile }),
+            });
+            const j = await r.json();
+            if (j.ok) { status.textContent = "You're in! Watch your inbox for wander notes."; form.reset(); if (window.turnstile) window.turnstile.reset(); }
+            else throw new Error(j.error || "Something went wrong.");
+          } catch (err) {
+            status.textContent = "Hmm, that didn't go through — try again in a bit.";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

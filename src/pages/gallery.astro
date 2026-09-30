@@ -1,0 +1,23 @@
+---
+import Base from "../layouts/Base.astro";
+import gallery from "../data/gallery.json";
+const photos = gallery.photos;
+---
+<Base title="Photo Gallery" active="Gallery">
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">Gallery</span>
+      <h1>Postcards from the road</h1>
+      <p style="max-width: 38em;">Snapshots from my travels — the places I've been and the ones I can't wait to send <em>you</em> to.</p>
+      <div class="gallery-grid" style="margin-top: 32px;">
+        {photos.map((p) => (
+          <figure style="margin:0;">
+            <img src={p.src} alt={p.caption} loading="lazy" />
+            <figcaption style="font-size:0.9rem; color: var(--ink-soft); margin-top:8px;">{p.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <p style="margin-top: 28px;">Want to be in the next set of photos? <a href="/contact">Let's plan your trip.</a></p>
+    </div>
+  </section>
+</Base>

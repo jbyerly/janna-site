@@ -1,0 +1,26 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate - a.data.pubDate);
+---
+<Base title="Blog" active="Blog">
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">Blog</span>
+      <h1>Stories from the road</h1>
+      <p style="max-width: 38em;">Trip reports, honest reviews, and travel tips — from someone who's been there.</p>
+      <div class="card-grid" style="margin-top: 32px;">
+        {posts.map((p) => (
+          <a class="card" href={`/blog/${p.id.replace(/\.md$/, "")}`}>
+            {p.data.heroImage && <img src={p.data.heroImage} alt={p.data.title} loading="lazy" />}
+            <div class="card-body">
+              <div class="meta">{p.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</div>
+              <h3>{p.data.title}</h3>
+              <p>{p.data.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

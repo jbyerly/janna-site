@@ -1,0 +1,63 @@
+# Decap CMS — Janna's site editor
+# Backend: connect to the site's GitHub repo (Jerry fills these in on deploy)
+backend:
+  name: github
+  repo: jbyerly2006/janna-site
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Short description", name: "description", widget: "text", required: false }
+      - { label: "Publish date", name: "pubDate", widget: "datetime" }
+      - { label: "Hero image", name: "heroImage", widget: "image", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "gallery"
+    label: "Photo Gallery"
+    files:
+      - name: "gallery"
+        label: "Gallery photos"
+        file: "src/data/gallery.json"
+        fields:
+          - label: "Photos"
+            name: "photos"
+            widget: "list"
+            fields:
+              - { label: "Photo", name: "src", widget: "image" }
+              - { label: "Caption", name: "caption", widget: "string", required: false }
+
+  - name: "videos"
+    label: "YouTube Videos"
+    files:
+      - name: "videos"
+        label: "Featured videos"
+        file: "src/data/videos.json"
+        fields:
+          - label: "Videos"
+            name: "videos"
+            widget: "list"
+            fields:
+              - { label: "YouTube video ID", name: "id", widget: "string", hint: "The part after v= in the YouTube URL" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "note", widget: "text", required: false }
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "General"
+        file: "src/data/settings.json"
+        fields:
+          - { label: "YouTube channel URL", name: "youtube_url", widget: "string", required: false }
+          - { label: "Instagram URL", name: "instagram_url", widget: "string", required: false }
+          - { label: "Facebook URL", name: "facebook_url", widget: "string", required: false }
