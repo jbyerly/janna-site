@@ -1,25 +1,53 @@
 ---
 import Base from "../layouts/Base.astro";
 import settings from "../data/settings.json";
+
+const partners = [
+  ["Walt Disney World", "/logos/disney.svg"],
+  ["Universal Orlando Resort", "/logos/universal.png"],
+  ["SeaWorld", "/logos/seaworld.svg"],
+  ["Norwegian Cruise Line", "/logos/norwegian.svg"],
+  ["Carnival Cruise Line", "/logos/carnival.svg"],
+  ["Royal Caribbean", "/logos/royal.svg"],
+  ["Iberostar Hotels & Resorts", "/logos/iberostar.png"],
+  ["Beaches Resorts", "/logos/beaches.svg"],
+  ["Sandals Resorts", "/logos/sandals.svg"],
+  ["Apple Vacations", "/logos/apple.png"],
+  ["Funjet Vacations", "/logos/funjet.png"],
+];
 ---
 <Base title="Janna Lyn — Travel Advisor" active="Home">
   <header class="hero">
-    <div class="wrap hero-inner">
-      <div>
-        <span class="eyebrow" style="color:#AEE6F5;">Cruises · Disney · Universal · Beyond</span>
-        <h1>Adventures planned <em>around you.</em></h1>
-        <p class="lede">
-          Hi, I'm Janna Lyn! I turn "someday" trips into "remember when" stories —
-          cruises, theme parks, and bucket-list getaways, planned down to the last detail
-          (flight delays excluded — nobody can plan around those).
-        </p>
-        <div class="hero-cta">
-          <a class="btn" href="/contact">Plan my trip</a>
-          <a class="btn btn-ghost" href="/videos">Watch my ship tours</a>
-        </div>
+    <img
+      class="hero-bg"
+      src="/images/hero-aerial-1920.jpg"
+      srcset="/images/hero-aerial-1200.jpg 1200w, /images/hero-aerial-1920.jpg 1920w"
+      sizes="100vw"
+      alt=""
+      fetchpriority="high"
+    />
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="wrap hero-content">
+      <span class="eyebrow" style="color:#AEE6F5;">Cruises · Disney · Universal · Beyond</span>
+      <h1>Adventures planned <em>around you.</em></h1>
+      <p class="lede">
+        Hi, I'm Janna Lyn! I turn "someday" trips into "remember when" stories —
+        cruises, theme parks, and bucket-list getaways, planned down to the last detail
+        (flight delays excluded — nobody can plan around those).
+      </p>
+      <div class="hero-cta">
+        <a class="btn" href="/contact">Plan my trip</a>
+        <a class="btn btn-ghost" href="/videos">Watch my ship tours</a>
       </div>
-      <div class="hero-photo">
-        <img src="/images/Janna-Dollywood-2-scaled.jpg" alt="Janna Lyn at Dollywood" fetchpriority="high" />
+    </div>
+    <div
+      class="logo-marquee"
+      role="img"
+      aria-label="Some of the travel brands Janna books: Walt Disney World, Universal, SeaWorld, Norwegian Cruise Line, Carnival, Royal Caribbean, Iberostar, Beaches, Sandals, Apple Vacations, and Funjet"
+    >
+      <div class="marquee-track">
+        {partners.map(([name, src]) => <img src={src} alt="" title={name} loading="lazy" />)}
+        {partners.map(([name, src]) => <img src={src} alt="" title={name} loading="lazy" aria-hidden="true" />)}
       </div>
     </div>
   </header>

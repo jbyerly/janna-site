@@ -79,32 +79,67 @@ section { padding: clamp(48px, 7vw, 96px) 0; }
   padding: 14px 0;
 }
 .brand { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; color: var(--teal-deep); text-decoration: none; }
-.brand img { height: 44px; width: auto; display: block; }
+.brand img { height: 64px; width: auto; display: block; }
 .brand small { display: block; font-family: var(--font-body); font-weight: 600; font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--coral-dark); }
 .nav-links { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
 .nav-links a { text-decoration: none; color: var(--ink-soft); font-weight: 600; font-size: 0.95rem; }
 .nav-links a:hover, .nav-links a.active { color: var(--coral-dark); }
-@media (max-width: 760px) { .nav-links { display: none; } }
+@media (max-width: 760px) { .nav-links { display: none; } .brand img { height: 48px; } }
 
 /* hero */
 .hero {
   position: relative; overflow: clip;
   border-radius: 0 0 36px 36px;
-  background: linear-gradient(120deg, var(--teal-deep), var(--teal));
+  background: var(--teal-deep);
   color: #fff;
+  display: flex; flex-direction: column;
 }
-.hero-inner {
-  display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px;
-  align-items: center; padding: clamp(56px, 8vw, 110px) 0;
+.hero-bg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 60%;
 }
+.hero-shade {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(100deg, rgba(11, 53, 86, 0.88) 0%, rgba(11, 53, 86, 0.58) 45%, rgba(11, 53, 86, 0.10) 80%),
+    linear-gradient(to top, rgba(11, 53, 86, 0.35), rgba(11, 53, 86, 0) 45%);
+}
+.hero-content {
+  position: relative; z-index: 1;
+  padding: clamp(72px, 9vw, 132px) 0 clamp(64px, 7vw, 96px);
+}
+.hero-content > * { max-width: 620px; }
 .hero h1 { color: #fff; }
 .hero h1 em { font-style: italic; color: #AEE6F5; }
-.hero p.lede { color: rgba(255,255,255,0.85); font-size: 1.15rem; max-width: 34em; }
-.hero-photo img { border-radius: 24px; box-shadow: var(--shadow); aspect-ratio: 4/4.6; object-fit: cover; width: 100%; }
+.hero p.lede { color: rgba(255, 255, 255, 0.88); font-size: 1.15rem; }
 .hero-cta { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
 .hero-cta .btn-ghost { border-color: #fff; color: #fff; }
 .hero-cta .btn-ghost:hover { background: #fff; color: var(--teal-deep); }
-@media (max-width: 860px) { .hero-inner { grid-template-columns: 1fr; } }
+
+/* partner logo marquee */
+.logo-marquee {
+  position: relative; z-index: 1;
+  background: #fff;
+  padding: 20px 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.marquee-track {
+  display: flex; align-items: center; width: max-content;
+  animation: marquee 42s linear infinite;
+}
+.logo-marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track img { height: 44px; width: auto; margin: 0 38px; flex: none; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@media (max-width: 640px) {
+  .logo-marquee { padding: 14px 0; }
+  .marquee-track { animation-duration: 30s; }
+  .marquee-track img { height: 32px; margin: 0 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
+}
 
 /* cards */
 .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
@@ -156,7 +191,7 @@ section { padding: clamp(48px, 7vw, 96px) 0; }
 /* footer */
 footer { background: var(--teal-deep); color: rgba(255,255,255,0.75); margin-top: 40px; }
 footer .fbrand { margin-bottom: 20px; }
-footer .fbrand img { height: 40px; width: auto; }
+footer .fbrand img { height: 48px; width: auto; }
 .footer-inner { padding: 48px 0 28px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 32px; }
 @media (max-width: 760px) { .footer-inner { grid-template-columns: 1fr; } }
 footer h3 { color: #fff; }
