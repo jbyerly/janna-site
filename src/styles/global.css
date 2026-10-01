@@ -1,19 +1,19 @@
-/* Gallivant — fresh travel design for Janna Lyn */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+/* Travel with Janna Lyn — blue brand (approved 2026-10-01) */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --cream: #FAF6EC;
-  --sand: #F3EAD4;
-  --ink: #10333D;
-  --ink-soft: #3E5A63;
-  --teal: #0F6B7A;
-  --teal-deep: #0B3D4A;
-  --coral: #E0703A;
-  --coral-dark: #BE5626;
+  --cream: #FBFCFD;
+  --sand: #EAF6FA;
+  --ink: #0B3556;
+  --ink-soft: #40606F;
+  --teal: #269FB7;
+  --teal-deep: #0B3556;
+  --coral: #269FB7;
+  --coral-dark: #0B3556;
   --white: #ffffff;
   --radius: 18px;
-  --shadow: 0 18px 45px rgba(16, 51, 61, 0.10);
-  --font-display: "Fraunces", Georgia, serif;
+  --shadow: 0 18px 45px rgba(11, 53, 86, 0.10);
+  --font-display: "Playfair Display", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
 }
 
@@ -70,15 +70,16 @@ section { padding: clamp(48px, 7vw, 96px) 0; }
 /* nav */
 .nav {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(250, 246, 236, 0.92);
+  background: rgba(251, 252, 253, 0.92);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(16, 51, 61, 0.08);
+  border-bottom: 1px solid rgba(11, 53, 86, 0.08);
 }
 .nav-inner {
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px 0;
 }
 .brand { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; color: var(--teal-deep); text-decoration: none; }
+.brand img { height: 44px; width: auto; display: block; }
 .brand small { display: block; font-family: var(--font-body); font-weight: 600; font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--coral-dark); }
 .nav-links { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
 .nav-links a { text-decoration: none; color: var(--ink-soft); font-weight: 600; font-size: 0.95rem; }
@@ -97,7 +98,7 @@ section { padding: clamp(48px, 7vw, 96px) 0; }
   align-items: center; padding: clamp(56px, 8vw, 110px) 0;
 }
 .hero h1 { color: #fff; }
-.hero h1 em { font-style: italic; color: #FFD9A8; }
+.hero h1 em { font-style: italic; color: #AEE6F5; }
 .hero p.lede { color: rgba(255,255,255,0.85); font-size: 1.15rem; max-width: 34em; }
 .hero-photo img { border-radius: 24px; box-shadow: var(--shadow); aspect-ratio: 4/4.6; object-fit: cover; width: 100%; }
 .hero-cta { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
@@ -146,7 +147,7 @@ section { padding: clamp(48px, 7vw, 96px) 0; }
 .field { margin-bottom: 18px; }
 .field label { display: block; font-weight: 600; margin-bottom: 8px; }
 .field input, .field textarea, .field select {
-  width: 100%; border: 1.5px solid #D8CDB4; border-radius: 12px;
+  width: 100%; border: 1.5px solid #C8DCEA; border-radius: 12px;
   padding: 13px 16px; font: 500 1rem var(--font-body); background: #fff; color: var(--ink);
 }
 .field textarea { min-height: 140px; resize: vertical; }
@@ -154,10 +155,12 @@ section { padding: clamp(48px, 7vw, 96px) 0; }
 
 /* footer */
 footer { background: var(--teal-deep); color: rgba(255,255,255,0.75); margin-top: 40px; }
+footer .fbrand { margin-bottom: 20px; }
+footer .fbrand img { height: 40px; width: auto; }
 .footer-inner { padding: 48px 0 28px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 32px; }
 @media (max-width: 760px) { .footer-inner { grid-template-columns: 1fr; } }
 footer h3 { color: #fff; }
-footer a { color: #FFD9A8; }
+footer a { color: #7FD3E6; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.15); padding: 18px 0 26px; font-size: 0.85rem; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
 /* video */

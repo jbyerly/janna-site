@@ -7,7 +7,7 @@ interface Props {
   description?: string;
   active?: string;
 }
-const { title, description = "Janna Lyn — your trusted travel advisor. Cruises, Disney, Universal, and unforgettable adventures, planned with love.", active = "" } = Astro.props;
+const { title, description = "Travel with Janna Lyn — cruises, resorts, theme parks, and unforgettable adventures, planned with love.", active = "" } = Astro.props;
 const links = [
   ["Home", "/"],
   ["About", "/about"],
@@ -23,13 +23,15 @@ const links = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <title>{title} · Janna Lyn Travel</title>
+    <title>{title} · Travel with Janna Lyn</title>
+    <link rel="icon" type="image/png" href="/images/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/images/favicon-180.png" />
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   </head>
   <body>
     <nav class="nav">
       <div class="wrap nav-inner">
-        <a class="brand" href="/">Janna Lyn<small>Gallivant Travel</small></a>
+        <a class="brand" href="/"><img src="/images/logo-horizontal-512.png" alt="Travel with Janna Lyn" /></a>
         <ul class="nav-links">
           {links.map(([label, href]) => (
             <li><a href={href} class={active === label ? "active" : ""}>{label}</a></li>
@@ -41,6 +43,9 @@ const links = [
       <slot />
     </main>
     <footer>
+      <div class="wrap fbrand">
+        <img src="/images/logo-horizontal-reversed-512.png" alt="Travel with Janna Lyn" />
+      </div>
       <div class="wrap footer-inner">
         <div>
           <h3>Let's plan your next adventure</h3>
@@ -61,7 +66,7 @@ const links = [
         </div>
       </div>
       <div class="wrap footer-bottom">
-        <span>© {new Date().getFullYear()} Gallivant LLC · Janna Lyn, Travel Advisor</span>
+        <span>© {new Date().getFullYear()} Travel with Janna Lyn</span>
         <span>Independent agent for Lavender Hills Travel</span>
       </div>
     </footer>
