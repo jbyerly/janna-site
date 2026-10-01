@@ -29,10 +29,13 @@ const links = [
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   </head>
   <body>
-    <nav class="nav">
+    <nav class="nav" id="siteNav">
       <div class="wrap nav-inner">
         <a class="brand" href="/"><img src="/images/logo-horizontal-512.png" alt="Travel with Janna Lyn" /></a>
-        <ul class="nav-links">
+        <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
           {links.map(([label, href]) => (
             <li><a href={href} class={active === label ? "active" : ""}>{label}</a></li>
           ))}
@@ -71,6 +74,23 @@ const links = [
         <span>Independent agent for Lavender Hills Travel</span>
       </div>
     </footer>
+    <script>
+      const siteNav = document.getElementById("siteNav");
+      const navToggle = document.getElementById("navToggle");
+      const closeNav = () => {
+        siteNav.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Open menu");
+      };
+      navToggle.addEventListener("click", () => {
+        const open = siteNav.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(open));
+        navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      });
+      document.querySelectorAll("#navLinks a").forEach((a) => a.addEventListener("click", closeNav));
+      document.addEventListener("click", (e) => { if (!siteNav.contains(e.target)) closeNav(); });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeNav(); });
+    </script>
     <script>
       document.querySelectorAll("[data-newsletter]").forEach((form) => {
         form.addEventListener("submit", async (e) => {
