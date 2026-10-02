@@ -1,11 +1,19 @@
 // gallivant-forms — contact form + newsletter signup for Janna's site.
 // Deploy: wrangler deploy (needs RESEND_API_KEY secret + NOTIFY_TO var)
 
-const CORS = {
-  "Access-Control-Allow-Origin": "https://www.jannalyn.com",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-};
+const ALLOWED_ORIGINS = new Set([
+  "https://www.jannalyn.com",
+  "https://janna-site.jbyerly2006.workers.dev",
+]);
+
+function corsHeaders(req) {
+  const origin = req.headers.get("Origin") || "";
+  return {
+    "Access-Control-Allow-Origin": ALLOWED_ORIGINS.has(origin) ? origin : "https://www.jannalyn.com",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+}
 
 async function sendEmail(env, { to, subject, text, replyTo }) {
   const r = await fetch("https://api.resend.com/emails", {
@@ -56,9 +64,9 @@ async function addToAudience(env, email) {
 export default {
   async fetch(req, env) {
     if (req.method === "OPTIONS")
-      return new Response(null, { headers: CORS });
+      return new Response(null, { headers: corsHeaders(req) });
     if (req.method !== "POST")
-      return new Response("Method not allowed", { status: 405, headers: CORS });
+      return new Response("Method not allowed", { status: 405, headers: corsHeaders(req) });
 
     const url = new URL(req.url);
     try {
@@ -67,37 +75,37 @@ export default {
 
       // Spam gate: every public submission must pass Turnstile
       if (!data.turnstile || !(await verifyTurnstile(env, data.turnstile, ip)))
-        return Response.json({ ok: false, error: "Spam check failed — please try again." }, { status: 403, headers: CORS });
+        return Response.json({ ok: false, error: "Spam check failed — please try again." }, { status: 403, headers: corsHeaders(req) });
 
       if (url.pathname === "/contact") {
         const { name, email, trip_type, message } = data;
         if (!name || !email || !message)
-          return Response.json({ ok: false, error: "Missing fields" }, { status: 400, headers: CORS });
+          return Response.json({ ok: false, error: "Missing fields" }, { status: 400, headers: corsHeaders(req) });
         await sendEmail(env, {
           to: env.NOTIFY_TO,
           replyTo: email,
           subject: `New trip inquiry from ${name}`,
           text: `Name: ${name}\nEmail: ${email}\nTrip type: ${trip_type || "—"}\n\n${message}`,
         });
-        return Response.json({ ok: true }, { headers: CORS });
+        return Response.json({ ok: true }, { headers: corsHeaders(req) });
       }
 
       if (url.pathname === "/newsletter") {
         const { email } = data;
         if (!email || !email.includes("@"))
-          return Response.json({ ok: false, error: "Bad email" }, { status: 400, headers: CORS });
+          return Response.json({ ok: false, error: "Bad email" }, { status: 400, headers: corsHeaders(req) });
         await addToAudience(env, email);
         await sendEmail(env, {
           to: env.NOTIFY_TO,
           subject: "New Wander Notes signup",
           text: `${email} joined the Wander Notes email list.`,
         });
-        return Response.json({ ok: true }, { headers: CORS });
+        return Response.json({ ok: true }, { headers: corsHeaders(req) });
       }
 
-      return Response.json({ ok: false, error: "Unknown route" }, { status: 404, headers: CORS });
+      return Response.json({ ok: false, error: "Unknown route" }, { status: 404, headers: corsHeaders(req) });
     } catch (e) {
-      return Response.json({ ok: false, error: String(e.message || e) }, { status: 500, headers: CORS });
+      return Response.json({ ok: false, error: String(e.message || e) }, { status: 500, headers: corsHeaders(req) });
     }
   },
 };

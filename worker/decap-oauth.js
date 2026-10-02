@@ -61,8 +61,9 @@ export default {
       // Decap listens for this exact message in the popup
       const payload = JSON.stringify({ token: tok.access_token, provider: "github" });
       const html = `<!doctype html><html><body><script>
-(function(){var msg="authorization:github:success:"+${JSON.stringify(payload)};
-if(window.opener){window.opener.postMessage(msg,"*");}window.close();})();
+(function(){var msg="authorization:github:success:"+${payload};
+if(window.opener){window.opener.postMessage(msg,"*");}
+setTimeout(function(){window.close();},400);})();
 </script><p>Signed in — you can close this window.</p></body></html>`;
       return new Response(html, {
         headers: {
