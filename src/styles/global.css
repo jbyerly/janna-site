@@ -79,7 +79,7 @@ section { padding: clamp(48px, 7vw, 96px) 0; }
   padding: 14px 0;
 }
 .brand { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; color: var(--teal-deep); text-decoration: none; }
-.brand img { height: 64px; width: auto; display: block; }
+.brand img { height: 90px; width: auto; display: block; }
 .brand small { display: block; font-family: var(--font-body); font-weight: 600; font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--coral-dark); }
 .nav-links { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
 .nav-links a { text-decoration: none; color: var(--ink-soft); font-weight: 600; font-size: 0.95rem; }
