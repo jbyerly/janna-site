@@ -17,7 +17,10 @@ export default {
   async fetch(req, env) {
     const url = new URL(req.url);
 
-    // Step 1: start login — bounce the popup to GitHub
+    // Step 1: start login — the popup must first shake hands with Decap.
+    // Decap only listens for the token AFTER it hears "authorizing:github"
+    // from this popup, so /auth serves a page (not a bare redirect) that
+    // posts the handshake, then sends the popup on to GitHub.
     if (url.pathname === "/auth") {
       const state = randomState();
       const params = new URLSearchParams({
@@ -26,10 +29,15 @@ export default {
         scope: "repo",
         state,
       });
-      return new Response(null, {
-        status: 302,
+      const githubUrl = `https://github.com/login/oauth/authorize?${params}`;
+      const html = `<!doctype html><html><body><script>
+(function(){
+  if (window.opener) { window.opener.postMessage("authorizing:github", "*"); }
+  setTimeout(function(){ window.location.href = ${JSON.stringify(githubUrl)}; }, 400);
+})();</script><p>Connecting to GitHub…</p></body></html>`;
+      return new Response(html, {
         headers: {
-          Location: `https://github.com/login/oauth/authorize?${params}`,
+          "Content-Type": "text/html",
           "Set-Cookie": `decap_oauth_state=${state}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=600`,
         },
       });
