@@ -84,7 +84,7 @@ section { padding: clamp(48px, 7vw, 96px) 0; }
 .nav-links { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
 .nav-links a { text-decoration: none; color: var(--ink-soft); font-weight: 600; font-size: 0.95rem; }
 .nav-links a:hover, .nav-links a.active { color: var(--coral-dark); }
-@media (max-width: 760px) { .brand img { height: 48px; } }
+@media (max-width: 760px) { .brand img { height: 70px; } }
 .nav-toggle {
   display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
   width: 44px; height: 44px; padding: 10px;
