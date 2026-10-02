@@ -66,10 +66,14 @@ export default {
       if (!tok.access_token)
         return new Response("GitHub sign-in failed — please try again.", { status: 502 });
 
-      // Decap listens for this exact message in the popup
+      // Decap listens for this exact message in the popup.
+      // NOTE: payload is already a JSON *string*; it must be embedded as a
+      // quoted JS string literal (hence stringify again) so the browser
+      // concatenates the raw JSON text. Without the quotes the object
+      // coerces to "[object Object]" and Decap can't parse it.
       const payload = JSON.stringify({ token: tok.access_token, provider: "github" });
       const html = `<!doctype html><html><body><script>
-(function(){var msg="authorization:github:success:"+${payload};
+(function(){var msg="authorization:github:success:"+${JSON.stringify(payload)};
 if(window.opener){window.opener.postMessage(msg,"*");}
 setTimeout(function(){window.close();},400);})();
 </script><p>Signed in — you can close this window.</p></body></html>`;
