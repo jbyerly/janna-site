@@ -1,5 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
+import testimonialData from "../data/testimonials.json";
+const testimonials = testimonialData.testimonials;
 ---
 <Base title="About Janna Lyn" active="About">
   <section>
@@ -15,6 +17,24 @@ import Base from "../layouts/Base.astro";
         <p>My life is truly blessed — the good Lord has kept me safe on countless adventures, and my bucket list is long. I'd love to help you start checking off yours.</p>
         <a class="btn" href="/contact" style="margin-top: 12px;">Let's plan something</a>
       </div>
+    </div>
+  </section>
+
+  <!-- PLACEHOLDER TESTIMONIALS: Janna, replace these with real client quotes in the site editor (Testimonials) before relying on them. -->
+  <section class="alt">
+    <div class="wrap">
+      <span class="eyebrow">Kind words</span>
+      <h2>Travelers I've helped</h2>
+      <div class="card-grid" style="margin-top: 32px;">
+        {testimonials.map((t) => (
+          <div class="card"><div class="card-body">
+            <div class="meta">{t.trip}</div>
+            <p>&ldquo;{t.quote}&rdquo;</p>
+            <p style="margin-top: 14px;"><strong>— {t.name}</strong></p>
+          </div></div>
+        ))}
+      </div>
+      <p style="margin-top: 24px;">Ready to become the next happy traveler? <a href="/contact">Let's plan your trip</a>.</p>
     </div>
   </section>
 </Base>

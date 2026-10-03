@@ -1,6 +1,9 @@
 ---
 import Base from "../layouts/Base.astro";
 import settings from "../data/settings.json";
+import videoData from "../data/videos.json";
+import faqData from "../data/faq.json";
+import testimonialData from "../data/testimonials.json";
 
 const partners = [
   ["Walt Disney World", "/logos/disney.svg"],
@@ -15,6 +18,10 @@ const partners = [
   ["Apple Vacations", "/logos/apple.png"],
   ["Funjet Vacations", "/logos/funjet.png"],
 ];
+
+const latestVideo = videoData.videos[0];
+const faqTeaser = faqData.faqs.slice(0, 3);
+const testimonials = testimonialData.testimonials.slice(0, 3);
 ---
 <Base title="Janna Lyn — Travel Advisor" active="Home">
   <header class="hero">
@@ -73,6 +80,76 @@ const partners = [
           <p>Travel advisors are paid by the travel companies, not by you. You get an expert in your corner for the same price as booking it yourself.</p>
         </div></div>
       </div>
+    </div>
+  </section>
+
+  {latestVideo && (
+    <section class="alt">
+      <div class="wrap">
+        <span class="eyebrow">Fresh off the ship</span>
+        <h2>Watch the latest walkthrough</h2>
+        <div class="split" style="margin-top: 32px;">
+          <div class="video-embed">
+            <iframe src={`https://www.youtube.com/embed/${latestVideo.id}`} title={latestVideo.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div>
+            <h3>{latestVideo.title}</h3>
+            {latestVideo.note && <p>{latestVideo.note}</p>}
+            <div style="margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap;">
+              <a class="btn" href="/videos">Watch all videos</a>
+              <a class="btn btn-ghost" href={settings.youtube_url} target="_blank" rel="noopener">Subscribe on YouTube</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section>
+    <div class="wrap split">
+      <div>
+        <span class="eyebrow">Meet your advisor</span>
+        <h2>Hi, I'm Janna Lyn!</h2>
+        <p>Travel advisor by profession, professional over-planner by nature. I've been exploring since I was a kid and planning trips for others since 2017 — most of the Caribbean, several European countries, 28 states, and more Disney and Universal visits than I can count.</p>
+        <p>I plan every trip like it's my own family's vacation. Let's make yours unforgettable.</p>
+        <a class="btn btn-ghost" href="/about" style="margin-top: 12px;">More about me</a>
+      </div>
+      <img src="/images/Janna-Dollywood-2-scaled.jpg" alt="Janna Lyn" loading="lazy" />
+    </div>
+  </section>
+
+  <!-- PLACEHOLDER TESTIMONIALS: Janna, replace these with real client quotes in the site editor (Testimonials) before relying on them. -->
+  <section class="alt">
+    <div class="wrap">
+      <span class="eyebrow">Kind words</span>
+      <h2>Travelers I've helped</h2>
+      <div class="card-grid" style="margin-top: 32px;">
+        {testimonials.map((t) => (
+          <div class="card"><div class="card-body">
+            <div class="meta">{t.trip}</div>
+            <p>&ldquo;{t.quote}&rdquo;</p>
+            <p style="margin-top: 14px;"><strong>— {t.name}</strong></p>
+          </div></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap" style="max-width: 820px;">
+      <span class="eyebrow">Good to know</span>
+      <h2>Questions? Answers.</h2>
+      <div class="faq-list" style="margin-top: 8px;">
+        {faqTeaser.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+      <a class="btn" href="/faq" style="margin-top: 24px;">Read all FAQs</a>
     </div>
   </section>
 

@@ -235,3 +235,12 @@ footer a { color: #7FD3E6; }
 @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
 .split img { border-radius: 24px; box-shadow: var(--shadow); }
 .alt { background: var(--sand); border-radius: 28px; }
+
+/* faq accordion */
+.faq-list details { border-bottom: 1px solid rgba(11, 53, 86, 0.15); padding: 18px 4px; }
+.faq-list details:first-child { border-top: 1px solid rgba(11, 53, 86, 0.15); }
+.faq-list summary { cursor: pointer; font-weight: 700; font-size: 1.08rem; color: var(--ink); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after { content: "+"; flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--sand); color: var(--teal); font-size: 1.3rem; font-weight: 400; display: inline-flex; align-items: center; justify-content: center; }
+.faq-list details[open] summary::after { content: "\2013"; background: var(--teal); color: #fff; }
+.faq-list details p { margin: 12px 0 4px; color: var(--ink-soft); max-width: 60em; }

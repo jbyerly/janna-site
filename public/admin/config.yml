@@ -53,6 +53,35 @@ collections:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Description", name: "note", widget: "text", required: false }
 
+  - name: "testimonials"
+    label: "Testimonials"
+    files:
+      - name: "testimonials"
+        label: "Client testimonials"
+        file: "src/data/testimonials.json"
+        fields:
+          - label: "Testimonials"
+            name: "testimonials"
+            widget: "list"
+            fields:
+              - { label: "Client name", name: "name", widget: "string" }
+              - { label: "Trip", name: "trip", widget: "string", required: false, hint: "e.g. 7-night Caribbean cruise" }
+              - { label: "Quote", name: "quote", widget: "text" }
+
+  - name: "faq"
+    label: "FAQ"
+    files:
+      - name: "faq"
+        label: "Frequently asked questions"
+        file: "src/data/faq.json"
+        fields:
+          - label: "Questions"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { label: "Question", name: "q", widget: "string" }
+              - { label: "Answer", name: "a", widget: "text" }
+
   - name: "settings"
     label: "Site Settings"
     files:
