@@ -1,1 +1,19 @@
-{"testimonials":[{"name":"[Client Name]","quote":"[Janna: replace this with a real client testimonial before publishing.]","trip":"[e.g. 7-night Caribbean cruise]"},{"name":"[Client Name]","quote":"[Janna: replace this with a real client testimonial before publishing.]","trip":"[e.g. Disney World family vacation]"},{"name":"[Client Name]","quote":"[Janna: replace this with a real client testimonial before publishing.]","trip":"[e.g. Adults-only beach getaway]"}]}
+{
+  "testimonials": [
+    {
+      "name": "[Client Name]",
+      "quote": "[Janna: replace this with a real client testimonial before publishing.]",
+      "trip": "[e.g. Disney World family vacation]"
+    },
+    {
+      "name": "[Client Name]",
+      "quote": "[Janna: replace this with a real client testimonial before publishing.]",
+      "trip": "[e.g. Adults-only beach getaway]"
+    },
+    {
+      "name": "Jerry",
+      "trip": "Disney Star Cruiser",
+      "quote": "It was the absolute BEST trip I have ever had! Janna Lyn for the win!"
+    }
+  ]
+}
